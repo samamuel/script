@@ -1,0 +1,30 @@
+#!/bin/bash
+#echo "$1 $2 $3 $4" >> ~/test.mcabber.log
+EVENT_TYPE=$1
+EVENT_SUBTYPE=$2
+JID=$3
+FILE=$4
+TITLE="Mcabber"
+SOUND_FILE="$HOME/.mcabber/sounds/QSNTNC13.WAV"		#Your sound file
+ICON="$HOME/.mcabber/images/mcabber.png"		#Your icon file
+TIMEOUT=10000
+#Get the actual volume
+VOL=$(amixer get Master | grep 'Front Left' | egrep -o "[0-9]+%")
+
+function new_message_in() {
+
+	# Visual Notification
+	notify-send -i $ICON -t $TIMEOUT "$TITLE" "New message from ${JID}."
+
+	# Sound notification
+	amixer set Master '30%'		#If you need to decrease the volume of your sound. Comment id needed
+	aplay -d 2 $SOUND_FILE		#Play sound notification
+	amixer set Master "$VOL"	#If set the original volume with the previous GET
+
+}
+
+
+if [ "$EVENT_TYPE" == "MSG" ] && [ "$EVENT_SUBTYPE" == "IN" ]
+then
+new_message_in
+fi

@@ -1,0 +1,7 @@
+This folder contain an example of config files for the XMPP terminal client named Mcabber.
+The folder  .mcabber/ must be located in /home/USER/
+
+Folder content:
+	- evencmd => script to handle the notifications with "notify-send" and a sound alert with "aplay"
+	- sounds => recipient of the sound alerts files
+	- images => recipient of the icon alert for the notification pop-up
